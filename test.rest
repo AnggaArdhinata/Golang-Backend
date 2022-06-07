@@ -1,0 +1,42 @@
+
+### GET DATA
+GET  http://localhost:8080/vehicle/ HTTP/1.1
+Content-Type: application/json
+
+
+### CREATE
+POST http://localhost:8080/user/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username" : "joni",
+    "password" : "123",
+    "email"    : "ardhinataangga@gmail.com",
+    "phone"    : "085764904549"
+
+}
+
+###UPDATE
+PUT  http://localhost:8080/user/update?id=11 HTTP/1.1
+Content-Type: application/json
+
+{
+    "userid"    : 11,
+    "username" : "bani",
+    "password" : "123455",
+    "email"    : "ardhinataangga@gmail.com",
+    "phone"    : "085764904549"
+
+}
+### CREATE Vehicle
+POST http://localhost:8080/vehicle/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "car"      : "odongodong",
+    "motorbike" : "Honda",
+    "bike"      : "Fixie"
+    
+}
+
+
