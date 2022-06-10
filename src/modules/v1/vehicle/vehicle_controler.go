@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"backend-golang/src/database/gorm/models"
 
 	"github.com/gorilla/mux"
 )
@@ -28,7 +29,7 @@ func (rep *vehicle_ctrl) GetAll(w http.ResponseWriter, r *http.Request) {
 }
 func (rep *vehicle_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var data Vehicle
+	var data models.Vehicle
 	json.NewDecoder(r.Body).Decode(&data)
 
 	resultusr, err := rep.repo.Add(&data)
@@ -42,7 +43,7 @@ func (rep *vehicle_ctrl) UpdateData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var dataId = r.URL.Query()
-	var data Vehicle
+	var data models.Vehicle
 
 	json.NewDecoder(r.Body).Decode(&data)
 

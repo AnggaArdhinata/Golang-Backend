@@ -1,7 +1,7 @@
 package main
 
 import (
-	"backend-golang-try/src/routers"
+	"backend-golang/src/routers"
 	"fmt"
 	"log"
 	"net/http"

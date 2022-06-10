@@ -1,12 +1,14 @@
 package users
 
 import (
-	"backend-golang-try/src/helpers"
+	"backend-golang/src/helpers"
 	"errors"
+	"backend-golang/src/database/gorm/models"
+
 	"gorm.io/gorm"
 )
 
-var users Users
+var users models.Users
 var response helpers.Response
 
 type user_repo struct {
@@ -17,8 +19,8 @@ func NewRepo(grm *gorm.DB) *user_repo {
 	return &user_repo{grm}
 }
 
-func (r *user_repo) FindAll() (*Users, error) {
-	var users Users
+func (r *user_repo) FindAll() (*models.Users, error) {
+	var users models.Users
 
 	result := r.db.Find(&users)
 
@@ -31,7 +33,7 @@ func (r *user_repo) FindAll() (*Users, error) {
 
 }
 
-func (r *user_repo) Add(data *User) (*User, error) {
+func (r *user_repo) Add(data *models.User) (*models.User, error) {
 
 	result := r.db.Create(data)
 
@@ -40,9 +42,9 @@ func (r *user_repo) Add(data *User) (*User, error) {
 	}
 	return data, nil
 }
-func (r *user_repo) UpdateUsr(id *int, data *User) (*helpers.Response, error) {
+func (r *user_repo) UpdateUsr(id *int, data *models.User) (*helpers.Response, error) {
 
-	result := r.db.Model(&User{}).Where("userid = ?", &id).Updates(&User{Username: data.Username, Password: data.Password})
+	result := r.db.Model(&models.User{}).Where("userid = ?", &id).Updates(&models.User{Username: data.Username, Password: data.Password})
 
 	if result.Error != nil {
 		res := response.ResponseJSON(400, users)
@@ -60,7 +62,7 @@ func (r *user_repo) UpdateUsr(id *int, data *User) (*helpers.Response, error) {
 }
 func (r *user_repo) DeleteUsr(data *int) (*helpers.Response, error) {
 	r.db.First(&users, &data)
-	result := r.db.Delete(&User{}, &data)
+	result := r.db.Delete(&models.User{}, &data)
 	if result.Error != nil {
 		res := response.ResponseJSON(400, users)
 		return res, nil
