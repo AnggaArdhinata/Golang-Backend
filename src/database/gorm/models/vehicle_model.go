@@ -5,10 +5,10 @@ import (
 )
 
 type Vehicle struct {
-	Vehicleid    uint   `gorm:"primaryKey" json:"vehicle_id"`
-	Cars  		string  `json:"car"`
-	Motorbike  	string  `json:"motorbike"`
-	Bike     	string  `json:"bike"`
+	Vehicleid    uint   `gorm:"primaryKey" json:"vehicleid"`
+	Name  		string  `json:"name"`
+	Type  		string  `json:"type"`
+	Price     	string  `json:"price"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

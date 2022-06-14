@@ -2,26 +2,21 @@ package vehicle
 
 import (
 	"backend-golang/src/database/gorm/models"
-	"backend-golang/src/helpers"
 	"errors"
 
 	"gorm.io/gorm"
 )
 
-var vehicles models.Vehicles
-var response helpers.Response
-
-type vehicle_repo struct {
+type vehicles_repo struct {
 	db *gorm.DB
 }
 
-func NewRepo(grm *gorm.DB) *vehicle_repo {
-	return &vehicle_repo{grm}
+func NewRepo(grm *gorm.DB) *vehicles_repo {
+	return &vehicles_repo{grm}
 }
-
-func (r *vehicle_repo) FindAll() (*models.Vehicles, error) {
+func (r *vehicles_repo) FindAll() (*models.Vehicles, error) {
 	var vehicles models.Vehicles
-	
+
 	result := r.db.Find(&vehicles)
 
 	if result.Error != nil {
@@ -29,42 +24,39 @@ func (r *vehicle_repo) FindAll() (*models.Vehicles, error) {
 	}
 	return &vehicles, nil
 }
-func (r *vehicle_repo) Add(data *models.Vehicle) (*models.Vehicle, error) {
+func (r *vehicles_repo) FindByTypeCars(cars string) (*models.Vehicle, error) {
+	var data models.Vehicle
 
+	result := r.db.First(&data, "cars = ?", cars)
+
+	if result.Error != nil {
+		return nil, errors.New("Gagal mengambil data")
+	}
+	return &data, nil
+}
+func (r *vehicles_repo) Add(data *models.Vehicle) (*models.Vehicle, error) {
 	result := r.db.Create(data)
 
 	if result.Error != nil {
-		return nil, errors.New("Gagal menambah data")
+		return nil, errors.New("Gagal menyimpan data")
 	}
 	return data, nil
 }
-func (r *vehicle_repo) UpdateVhc(id *int, data *models.Vehicle) (*helpers.Response, error) {
-
-	result := r.db.Model(&models.Vehicle{}).Where("vehicleid = ?", &id).Updates(&models.Vehicle{Cars: data.Cars, Motorbike: data.Motorbike, Bike: data.Bike})
+func (r *vehicles_repo) Delete(data int) error {
+	result := r.db.Delete(models.Vehicle{}, data)
 
 	if result.Error != nil {
-		res := response.ResponseJSON(400, vehicles)
-		return res, nil
+		return errors.New("Gagal menghapus data")
 	}
+	return nil
 
-	getData := r.db.First(&vehicles, &id)
-	if getData.RowsAffected < 1 {
-		res := response.ResponseJSON(404, vehicles)
-		return res, nil
-	}
-
-	res := response.ResponseJSON(201, vehicles)
-	return res, nil
 }
-func (r *vehicle_repo) DeleteVhc(data *int) (*helpers.Response, error) {
-	r.db.First(&vehicles, &data)
-	result := r.db.Delete(&models.Vehicles{}, &data)
-	if result.Error != nil {
-		res := response.ResponseJSON(400, vehicles)
-		return res, nil
-	}
+func (r *vehicles_repo) Update(id int, data *models.Vehicle) (*models.Vehicle, error){
+	var vehicles models.Vehicle
+	result := r.db.Model(&vehicles).Where("vehicleid = ?", id).Updates(data)
+	if result.Error !=nil {
+		return nil, errors.New("Gagal Mengupdate data")
 
-	res := response.ResponseJSON(204, vehicles)
-	return res, nil
-	
-} 
+	}
+	return data, nil
+}

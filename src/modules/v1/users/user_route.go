@@ -1,6 +1,8 @@
 package users
 
 import (
+	"backend-golang/src/middleware"
+
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
@@ -9,12 +11,13 @@ func New(rt *mux.Router, db *gorm.DB) {
 	route := rt.PathPrefix("/user/").Subrouter()
 
 	repo := NewRepo(db)
-	ctrl := NewCtrl(repo)
+	svc := NewService(repo)
+	ctrl := NewCtrl(svc)
 
-	route.HandleFunc("/", ctrl.GetAll).Methods("GET")
+	route.HandleFunc("/", middleware.Do(ctrl.GetAll, middleware.CheckAuth)).Methods("GET")
+	route.HandleFunc("/{userid}", ctrl.GetById).Methods("GET")
 	route.HandleFunc("/", ctrl.AddData).Methods("POST")
-	route.HandleFunc("/update", ctrl.UpdateData).Methods("PUT")
-	route.HandleFunc("/{id}", ctrl.DeleteData).Methods("DELETE")
-
+	route.HandleFunc("/update", middleware.Do(ctrl.UpdateData, middleware.CheckAuth)).Methods("PUT")
+	route.HandleFunc("/{userid}", middleware.Do(ctrl.DeleteData, middleware.CheckAuth)).Methods("DELETE")
 
 }

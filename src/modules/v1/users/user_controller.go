@@ -1,4 +1,4 @@
-package vehicle
+package users
 
 import (
 	"backend-golang/src/database/gorm/models"
@@ -10,15 +10,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type vehicles_ctrl struct {
-	repo interfaces.VehicleService
+type users_ctrl struct {
+	repo interfaces.UserService
 }
 
-func NewCtrl(rep interfaces.VehicleService) *vehicles_ctrl {
-	return &vehicles_ctrl {rep}
+func NewCtrl(rep interfaces.UserService) *users_ctrl {
+	return &users_ctrl{rep}
 }
 
-func (rep *vehicles_ctrl) GetAll(w http.ResponseWriter, r *http.Request) {
+func (rep *users_ctrl) GetAll(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	data, err := rep.repo.FindAll()
@@ -29,11 +29,24 @@ func (rep *vehicles_ctrl) GetAll(w http.ResponseWriter, r *http.Request) {
 	data.Send(w)
 	
 }
+func (rep *users_ctrl) GetById(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	vars := mux.Vars(r)
+	iduser, err := strconv.Atoi(vars["userid"])
 
-func (rep *vehicles_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
+	result, err := rep.repo.FindById(iduser)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+	result.Send(w)
+	
+}
+
+func (rep *users_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var data models.Vehicle
+	var data models.User
 
 	json.NewDecoder(r.Body).Decode(&data)
 	result, err := rep.repo.Save(&data)
@@ -43,24 +56,24 @@ func (rep *vehicles_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	result.Send(w)
 }
 
-func (rep *vehicles_ctrl) DeleteData(w http.ResponseWriter, r *http.Request) {
+func (rep *users_ctrl) DeleteData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
-	idVehicle, err := strconv.Atoi(vars["vehicleid"])
+	iduser, err := strconv.Atoi(vars["userid"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
-	result, err := rep.repo.Del(idVehicle)
+	result, err := rep.repo.Del(iduser)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 	result.Send(w)
 
 }
-func (rep *vehicles_ctrl) UpdateData(w http.ResponseWriter, r *http.Request) {
+func (rep *users_ctrl) UpdateData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var dataId = r.URL.Query()
-	var data models.Vehicle
+	var data models.User
 
 	json.NewDecoder(r.Body).Decode(&data)
 

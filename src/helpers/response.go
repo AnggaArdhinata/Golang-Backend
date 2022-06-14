@@ -1,63 +1,59 @@
 package helpers
 
+import (
+	"encoding/json"
+	"net/http"
+)
+
 type Response struct {
-	Status  int         `json:"status"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Status      string       `json:"status"`
+	IsError     bool        `json:"isError"`
+	Data        interface{} `json:"data,omitempty"`
+	Description interface{} `json:"description,omitempty"`
 }
 
-func (res *Response) ResponseJSON(status int, data interface{}) *Response {
+func (res *Response) Send(w http.ResponseWriter) {
+	err := json.NewEncoder(w).Encode(res)
+	if err != nil {
+		w.Write([]byte("Error When Encode Response"))
+	}
+}
 
+func New(data interface{}, code int, isError bool) *Response {
+	if isError {
+		return &Response{
+			Status: 	getStatus(code),
+			IsError: 	isError,
+			Description: data,
+		}
+	}
+	return &Response{
+		Status: getStatus(code),
+		IsError: isError,
+		Data: data,
+
+	}
+}
+func getStatus(status int) string {
+	var desc string
 	switch status {
 	case 200:
-		res.Status = status
-		res.Message = "OK"
-		res.Data = data
+		desc = "OK"
 	case 201:
-		res.Status = status
-		res.Message = "Created"
-		res.Data = data
-	case 204:
-		res.Status = status
-		res.Message = "Delete Data Successfully"
-		res.Data = data
-	case 300:
-		res.Status = status
-		res.Message = "Multiple Choice"
-		res.Data = data
-	case 304:
-		res.Status = status
-		res.Message = "Not Modified"
-		res.Data = data
+		desc = "Created"
 	case 400:
-		res.Status = status
-		res.Message = "Bad Request"
-		res.Data = data
+		desc = "Bad Request"
 	case 401:
-		res.Status = status
-		res.Message = "Unauthorized"
-		res.Data = data
-	case 403:
-		res.Status = status
-		res.Message = "Forbidden"
-		res.Data = data
-	case 404:
-		res.Status = status
-		res.Message = "Not Found"
-		res.Data = data
+		desc = "Unautorized"
 	case 500:
-		res.Status = status
-		res.Message = "Internal Server Error"
-		res.Data = data
+		desc = "Internal Server Error"
 	case 501:
-		res.Status = status
-		res.Message = "Bad Gateway"
-		res.Data = data
+		desc = "Bad Gateway"
+	case 304:
+		desc = "Not Modified"
 	default:
-		res.Status = status
-		res.Message = ""
-		res.Data = data
+		desc = ""
 	}
 
-	return res
+	return desc
 }
