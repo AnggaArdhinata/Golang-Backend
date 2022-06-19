@@ -34,6 +34,11 @@ func (rep *order_ctrl) GetById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	iduser, err := strconv.Atoi(vars["userid"])
 
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+
 	result, err := rep.repo.FindById(iduser)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

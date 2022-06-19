@@ -20,7 +20,7 @@ func (r *orders_repo) FindAll() (*models.Orders, error) {
 	result := r.db.Find(&orders)
 
 	if result.Error != nil {
-		return nil, errors.New("Gagal mengambil data")
+		return nil, errors.New("gagal mengambil data")
 	}
 	return &orders, nil
 }
@@ -30,7 +30,7 @@ func (r *orders_repo) FindByUserId(id int) (*models.Order, error) {
 	result := r.db.Preload("Vehicle").Where("userid = ?").Find(&orders)
 
 	if result.Error != nil {
-		return nil, errors.New("Gagal mengambil data")
+		return nil, errors.New("gagal mengambil data")
 	}
 	return &orders, nil
 }
@@ -38,7 +38,7 @@ func (r *orders_repo) Add(data *models.Order) (*models.Order, error) {
 	result := r.db.Create(data)
 
 	if result.Error != nil {
-		return nil, errors.New("Gagal menyimpan data")
+		return nil, errors.New("gagal menyimpan data")
 	}
 	return data, nil
 }
