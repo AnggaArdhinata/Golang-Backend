@@ -6,14 +6,14 @@ import (
 )
 
 type OrderRepo interface {
-	// FindAll() (*models.Orders, error)
+	FindAll() (*models.Orders, error)
 	FindByUserId(id int) (*models.Order, error)
 	Add(data *models.Order) (*models.Order, error)
 	// Delete(data int) error
 	
 }
 type OrderService interface {
-	// FindAll() (*helpers.Response, error)
+	FindAll() (*helpers.Response, error)
 	FindById(id int) (*helpers.Response, error)
 	Save(data *models.Order) (*helpers.Response, error)
 	// Del(data int) (*helpers.Response, error)

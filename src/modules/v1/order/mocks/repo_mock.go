@@ -10,10 +10,7 @@ type RepoMock struct {
 	Mock mock.Mock
 }
 
-// func (pr *RepoMock)FindAll() (*models.Orders, error) {
-// 	args := pr.Mock.
-// 	return mock.Arguments.Get(0), args
-// }
+func (pr *RepoMock)FindAll() (*models.Orders, error) 
 
 
 func (pr *RepoMock) FindByUserId(id int) (*models.Order, error) {
