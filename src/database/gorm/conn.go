@@ -27,6 +27,9 @@ func New() (*gorm.DB, error){
 	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", host, user, password, dbName)
 
 	gormDB, err := gorm.Open(postgres.Open(config), &gorm.Config{})
+	if err !=nil {
+		return nil, err
+	}
 
 
 	db, err := gormDB.DB()

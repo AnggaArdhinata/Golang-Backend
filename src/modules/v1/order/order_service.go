@@ -14,15 +14,15 @@ func NewService(rep interfaces.OrderRepo) *orders_service {
 	return &orders_service{rep}
 }
 
-func (re *orders_service) FindAll() (*helpers.Response, error) {
-	data, err := re.rep.FindAll()
-	if err !=nil {
-		return nil, err
-	}
+// func (re *orders_service) FindAll() (*helpers.Response, error) {
+// 	data, err := re.rep.FindAll()
+// 	if err !=nil {
+// 		return nil, err
+// 	}
 
-	response := helpers.New(data, 200, false)
-	return response, nil
-}
+// 	response := helpers.New(data, 200, false)
+// 	return response, nil
+// }
 func (re *orders_service) FindById(id int) (*helpers.Response, error) {
 	data, err := re.rep.FindByUserId(id)
 	if err !=nil {

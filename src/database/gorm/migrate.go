@@ -62,7 +62,6 @@ func dbMigrate(cmd *cobra.Command, args []string) error {
 				return tx.AutoMigrate(&models.Order{})
 			},
 			
-			
 			Rollback: func(tx *gorm.DB) error {
 				return tx.Migrator().DropTable("orders")
 			},
