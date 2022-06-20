@@ -1,1 +1,1 @@
-web: sudo ./build/backend_go server
+web: bin/main server
