@@ -4,4 +4,4 @@ APP_EXE="./build/$(APP)"
 run:
 	$(APP_EXE) server
 build:
-	mkdir -p ./build && CGO_ENABLED=0 GOOS=windows go build -o ${APP_EXE}
+	mkdir -p ./build && CGO_ENABLED=0 GOOS=linux go build -o ${APP_EXE}

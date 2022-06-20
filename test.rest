@@ -1,0 +1,13 @@
+#### GET ALL USER
+GET http://localhost:8080/users/
+Content-Type: application/json
+
+### Authorized
+POST https://angga-backend-go.herokuapp.com/users/
+Content-Type: application/json 
+{
+    "username"  :"Angga",
+    "password"  :"abc1233",
+    "email"     :"ardhinataangga@gmail.com",
+    "phone"     :"08576754645"
+}
