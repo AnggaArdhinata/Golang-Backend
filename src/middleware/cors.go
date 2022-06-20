@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	
 	"net/http"
 
 	"github.com/rs/cors"
@@ -12,12 +11,12 @@ func CorsMid(next http.HandlerFunc) http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 		corsMiddleware := cors.New(cors.Options{
 			AllowedOrigins: []string{"https://www.google.com"},
-    		AllowedMethods: []string{"GET", "POST", "PUT"},
-    		AllowedHeaders: []string{"Content-Type", "X-CSRF-Token"},
-    		Debug:          true,
+			AllowedMethods: []string{"GET", "POST", "PUT", "Delete"},
+			AllowedHeaders: []string{"Content-Type", "X-CSRF-Token"},
+			Debug:          true,
 		})
 		corsMiddleware.Handler(next)
-		next.ServeHTTP(w, r)	
+		next.ServeHTTP(w, r)
 	}
-	
+
 }
