@@ -1,1 +1,1 @@
-web : /build/angga-backend-go server
+web : ./build/backend_go server

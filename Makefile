@@ -1,4 +1,4 @@
-APP=angga-backend-go
+APP=backend_go
 APP_EXE="./build/$(APP)"
 
 run:
