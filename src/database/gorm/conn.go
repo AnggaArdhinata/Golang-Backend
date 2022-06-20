@@ -20,7 +20,7 @@ func New() (*gorm.DB, error) {
 		log.Fatal("Error loading .env file")
 	}
 
-	host := os.Getenv("DB_Host")
+	host := os.Getenv("DB_host")
 	user := os.Getenv("DB_user")
 	password := os.Getenv("DB_password")
 	dbName := os.Getenv("DB_name")
