@@ -1,1 +1,1 @@
-web: bin/main server
+web: bin/backend-golang serve
