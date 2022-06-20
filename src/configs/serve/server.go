@@ -21,7 +21,7 @@ func serve(cmd *cobra.Command, args []string) error {
 		var addrs string = "127.0.0.1:8080"
 
 		if pr := os.Getenv("PORT"); pr != "" {
-			addrs = "127.0.0.1:" + pr
+			addrs = ":" + pr
 		}
 
 		log.Println("App running on " + addrs)
