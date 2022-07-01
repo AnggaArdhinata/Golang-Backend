@@ -30,8 +30,9 @@ POST https://angga-backend-go.herokuapp.com/vehicle/
 Content-Type: "application/json"
 
     {
-    "name"  :"Honda HR-V",
+    "name"  :"Daihatsu Sigra",
     "type"  :"Car",
+    "desc"  : "KJHKJHKHKHKHKHKHLKJL;JL;J;LJL;JLJJ",
     "price" :"Rp. 350.000"
     }
 
@@ -41,5 +42,5 @@ Content-Type: "application/json"
 
 
 ### Delete vehicle
-DELETE https://angga-backend-go.herokuapp.com/vehicle/1
+DELETE https://angga-backend-go.herokuapp.com/vehicle/3
 Content-Type: "application/json"
