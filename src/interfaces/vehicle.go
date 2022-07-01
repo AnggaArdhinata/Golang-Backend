@@ -7,16 +7,16 @@ import (
 
 type VehicleRepo interface {
 	FindAll() (*models.Vehicles, error)
-	FindByTypeCars(cars string) (*models.Vehicle, error)
-	Add(*models.Vehicle) (*models.Vehicle, error)
+	FindByVehiceleId(id int) (*models.Vehicle, error)
+	Add(data *models.Vehicle) (*models.Vehicle, error)
 	Delete(data int) error
 	Update(id int, data *models.Vehicle) (*models.Vehicle, error)
 
 }
 type VehicleService interface {
 	FindAll() (*helpers.Response, error)
-	FindByTypeCars(cars string) (*helpers.Response, error)
-	Save(*models.Vehicle) (*helpers.Response, error)
+	FindById(id int) (*helpers.Response, error)
+	Save(data *models.Vehicle) (*helpers.Response, error)
 	Del(data int) (*helpers.Response, error)
 	Updt(id int, data *models.Vehicle) (*helpers.Response, error)
 

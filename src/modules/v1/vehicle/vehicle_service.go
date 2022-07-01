@@ -24,8 +24,8 @@ func (re *vehicles_services) FindAll() (*helpers.Response, error) {
 	response := helpers.New(data, 200, false)
 	return response, nil
 }
-func (re *vehicles_services) FindByTypeCars(cars string) (*helpers.Response, error) {
-	data, err := re.rep.FindByTypeCars(cars)
+func (re *vehicles_services) FindById(id int) (*helpers.Response, error) {
+	data, err := re.rep.FindByVehiceleId(id)
 	if err !=nil {
 		return nil, err
 	}

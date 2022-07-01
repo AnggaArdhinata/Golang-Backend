@@ -1,13 +1,45 @@
-#### GET ALL USER
-GET http://localhost:8080/users/
-Content-Type: application/json
+@tokens = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkFuZ2dhIEFyZGhpbmF0YSIsImV4cCI6MTY1NTc0MjAzNn0.0Oi1CP28kcDddOcAljKBESooJj9hbujIxZNrlzKrl0c
+### TOKEN LOGIN
+POST https://angga-backend-go.herokuapp.com/auth/
+Content-Type: "application/json"
 
-### Authorized
+ {
+    "username"  :"Angga Ardhinata",
+    "password"  :"angga123"
+ }
+
+
+#### GET ALL USER
+GET https://angga-backend-go.herokuapp.com/users/
+Authorization: {{tokens}}
+
+### ADD USER
 POST https://angga-backend-go.herokuapp.com/users/
-Content-Type: application/json 
-{
-    "username"  :"Angga",
-    "password"  :"abc1233",
-    "email"     :"ardhinataangga@gmail.com",
-    "phone"     :"08576754645"
-}
+Content-Type: "application/json"
+
+    {
+    "username"  :"Rochman Ramadhan",
+    "password"  :"roch123",
+    "email"     :"rohman@gmail.com",
+    "phone"     :"085764904549"
+    }
+
+
+### ADD Vehicle
+POST https://angga-backend-go.herokuapp.com/vehicle/
+Content-Type: "application/json"
+
+    {
+    "name"  :"Honda HR-V",
+    "type"  :"Car",
+    "price" :"Rp. 350.000"
+    }
+
+### GET Vehicle
+GET https://angga-backend-go.herokuapp.com/vehicle/
+Content-Type: "application/json"
+
+
+### Delete vehicle
+DELETE https://angga-backend-go.herokuapp.com/vehicle/1
+Content-Type: "application/json"
