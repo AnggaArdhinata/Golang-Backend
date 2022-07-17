@@ -1,20 +1,20 @@
-@tokens = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkFuZ2dhIEFyZGhpbmF0YSIsImV4cCI6MTY1NTc0MjAzNn0.0Oi1CP28kcDddOcAljKBESooJj9hbujIxZNrlzKrl0c
+@tokens = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IlJvY2htYW4gUmFtYWRoYW4iLCJleHAiOjE2NTY5NTg4MDV9.63gYIwzx7YN5ynmNwgnlIO5Ro2iPe-UaxNZ-7QJgpFQ
 ### TOKEN LOGIN
-POST https://angga-backend-go.herokuapp.com/auth/
+POST http://localhost:8080/auth/
 Content-Type: "application/json"
 
  {
-    "username"  :"Angga Ardhinata",
-    "password"  :"angga123"
+    "username"  :"Rochman Ramadhan",
+    "password"  :"roch123"
  }
 
 
 #### GET ALL USER
-GET https://angga-backend-go.herokuapp.com/users/
+GET http://localhost:8080/users/
 Authorization: {{tokens}}
 
 ### ADD USER
-POST https://angga-backend-go.herokuapp.com/users/
+POST http://localhost:8080/users/
 Content-Type: "application/json"
 
     {
@@ -26,14 +26,16 @@ Content-Type: "application/json"
 
 
 ### ADD Vehicle
-POST https://angga-backend-go.herokuapp.com/vehicle/
+POST http://localhost:8080/vehicle/
 Content-Type: "application/json"
 
     {
-    "name"  :"Daihatsu Sigra",
-    "type"  :"Car",
-    "desc"  : "KJHKJHKHKHKHKHKHLKJL;JL;J;LJL;JLJJ",
-    "price" :"Rp. 350.000"
+    "name"      :"Toyota Fortuner Vrz",
+    "location"  :"Jakarta",
+    "type"      :"Car",
+    "desc"      :"Mobil keluarga paling handal dikelasnya. Mempunyai tiga baris kursi dengan penumpang maksimal 7 orang, menjadikan mobil ini layak untuk di sewa sebagai berkendara bersama keluarga tercinta.",
+    "price"     :"Rp. 450.000",
+    "image"     :"https://www.toyota.astra.co.id/sites/default/files/2022-01/1-super-white.png"
     }
 
 ### GET Vehicle
@@ -42,5 +44,5 @@ Content-Type: "application/json"
 
 
 ### Delete vehicle
-DELETE https://angga-backend-go.herokuapp.com/vehicle/3
+DELETE https://angga-backend-go.herokuapp.com/vehicle/1
 Content-Type: "application/json"

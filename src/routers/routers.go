@@ -32,6 +32,7 @@ func New() (*mux.Router, error) {
 	}
 	
 	mainRoute.HandleFunc(newrelic.WrapHandleFunc(nRelic, "/relic", relicHandler)).Methods("GET")
+	mainRoute.HandleFunc("/", simpleHandler).Methods("GET")
 
 	users.New(mainRoute, db)
 	vehicle.New(mainRoute, db)
@@ -45,4 +46,8 @@ func New() (*mux.Router, error) {
 
 func relicHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello Relic"))
+}
+
+func simpleHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Welcome to Vehicle-Rental-App-Backend"))
 }

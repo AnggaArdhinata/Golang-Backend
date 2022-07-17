@@ -18,6 +18,6 @@ func New(rt *mux.Router, db *gorm.DB) {
 	route.HandleFunc("/{userid}", ctrl.GetById).Methods("GET")
 	route.HandleFunc("/", ctrl.AddData).Methods("POST")
 	route.HandleFunc("/update", middleware.Do(ctrl.UpdateData, middleware.CheckAuth)).Methods("PUT")
-	route.HandleFunc("/{userid}", middleware.Do(ctrl.DeleteData, middleware.CorsMid)).Methods("DELETE")
+	route.HandleFunc("/{userid}", middleware.Do(ctrl.DeleteData, middleware.CheckAuth)).Methods("DELETE")
 
 }
