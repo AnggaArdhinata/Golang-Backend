@@ -14,6 +14,8 @@ import (
 
 func New() (*gorm.DB, error) {
 
+	//if want to run this app to localhost, please uncomment the code below!
+
 	// err := godotenv.Load()
 
 	// if err != nil {
@@ -25,7 +27,7 @@ func New() (*gorm.DB, error) {
 	password := os.Getenv("DB_password")
 	dbName := os.Getenv("DB_name")
 
-	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=enable", host, user, password, dbName)
+	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s", host, user, password, dbName)
 
 	gormDB, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {

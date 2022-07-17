@@ -20,6 +20,7 @@ func serve(cmd *cobra.Command, args []string) error {
 	if mainRoute, err := routers.New(); err == nil {
 		var addrs string = "127.0.0.1:8080"
 
+		//if you using localhost, change "PORT" with "APP_PORT" based on .env file
 		if pr := os.Getenv("PORT"); pr != "" {
 			addrs = ":" + pr
 		}
